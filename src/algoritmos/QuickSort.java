@@ -6,9 +6,7 @@ public class QuickSort {
 	}
 
 	private static void ordenar(int[] array, int indiceInferior, int indiceSuperior) {
-		if (indiceInferior >= indiceSuperior) {
-			return;
-		}
+		if (indiceInferior >= indiceSuperior) return;
 		int posicionFinalPivote = particionarArray(array, indiceInferior, indiceSuperior);
 		ordenar(array, indiceInferior, posicionFinalPivote - 1);
 		ordenar(array, posicionFinalPivote + 1, indiceSuperior);

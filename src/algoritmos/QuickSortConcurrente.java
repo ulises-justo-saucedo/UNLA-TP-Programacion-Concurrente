@@ -1,11 +1,9 @@
 package algoritmos;
 
 public class QuickSortConcurrente {
-	public static void ordenar(int[] array) {
+	public static void ordenar(int[] array) throws InterruptedException {
 		int posicionFinalPivote = particionarArray(array, 0, array.length - 1);
-		int contador = 0;
-		for(int i = 0 ; i < posicionFinalPivote ; i++) contador++;
-		System.out.println("CARGA DE TRABAJO: Hilo 1 -> "+contador+" | Hilo 2 -> "+(array.length - contador));
+		System.out.println("CARGA DE TRABAJO - HILO 1: "+posicionFinalPivote+" - HILO 2: "+(array.length - posicionFinalPivote));
 		Thread hilo1 = new Thread(() -> {
 			ordenar(array, 0, posicionFinalPivote - 1);
 		});
@@ -14,12 +12,8 @@ public class QuickSortConcurrente {
 		});
 		hilo1.start();
 		hilo2.start();
-		try {
-			hilo1.join();
-			hilo2.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		hilo1.join();
+		hilo2.join();
 	}
 
 	private static void ordenar(int[] array, int indiceInferior, int indiceSuperior) {
